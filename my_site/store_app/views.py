@@ -133,11 +133,11 @@ class CartItemViewSet(viewsets.ModelViewSet):
 
 
 class FavoriteViewSet(viewsets.ModelViewSet):
-    queryset = FavoriteItem.objects.all()
+    queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
 
 
 class FavoriteItemViewSet(viewsets.ModelViewSet):
-    queryset = Favorite.objects.all()
+    queryset = FavoriteItem.objects.all()
     serializer_class = FavoriteItemSerializer
 

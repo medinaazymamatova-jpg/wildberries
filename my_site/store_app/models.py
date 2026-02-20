@@ -103,9 +103,12 @@ class CartItem(models.Model):
 class Favorite(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.user.username}'
+
 class FavoriteItem(models.Model):
-    favorite = models.ForeignKey(Favorite, on_delete=models.CASCADE)
+    favorite = models.ForeignKey(Favorite, on_delete=models.CASCADE, related_name='like')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.product
+        return self.product.product_name

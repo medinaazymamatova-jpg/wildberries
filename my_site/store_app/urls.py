@@ -1,13 +1,14 @@
 from rest_framework import routers
 from .views import (UserProfileViewSet, CategoryListAPIView,CategoryDetailAPIView, SubCategoryListAPIView,
                     SubCategoryDetailAPIView, ProductListAPIView,  ProductDetailAPIView, ReviewViewSet,CartViewSet,
-                    CartItemViewSet, RegisterView, LogoutView, LoginView )
+                    CartItemViewSet, RegisterView, LogoutView, LoginView, FavoriteViewSet, FavoriteItemViewSet )
 from django.urls import path, include
 
 router = routers.DefaultRouter()
 
 router.register(r'user', UserProfileViewSet, basename='users')
 router.register(r'review', ReviewViewSet , basename='reviews')
+router.register(r'favorite', FavoriteViewSet, basename='favorites')
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -23,7 +24,6 @@ urlpatterns = [
     path('cart/', CartViewSet.as_view(), name='cart_detail'),
     path('cart_items/', CartItemViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('cart_items/<int:pk>', CartItemViewSet.as_view({'put': 'update', 'delete': 'destroy'})),
-
 ]
 
 

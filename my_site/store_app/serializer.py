@@ -162,14 +162,17 @@ class CartSerializer(serializers.ModelSerializer):
     def get_total_price(self, obj):
         return obj.get_total_price()
 
-
-class FavoriteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Favorite
-        fields = '__all__'
-
-
 class FavoriteItemSerializer(serializers.ModelSerializer):
+    product = ProductListSerializer(read_only=True)
+    product_id = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(),
+                                                    write_only=True, source='product')
+
     class Meta:
         model = FavoriteItem
-        fields = '__all__'
+        fields = ['id', 'product', 'product_id']
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    like = FavoriteItemSerializer(many=True, read_only=True)
+    class Meta:
+        model = Favorite
+        fields = ['id', 'like', 'user']
